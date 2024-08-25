@@ -1,0 +1,8 @@
+{
+  "appId": "com.compaksa.app",
+  "appName": "Compak-SA",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

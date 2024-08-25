@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="navigation"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Clubs </ion-title>
+    <!-- <ion-buttons slot="primary">
+      <ion-spinner *ngIf="loading" name="lines" color="dark"></ion-spinner>
+      <ion-button [routerLink]="['/create-club']">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed *ngIf="clubsLoaded">
+    <ion-row>
+      <ion-col size="12" size-md="6" offset-md="3">
+        <ion-searchbar
+          placeholder="Find Clubs"
+          (ionChange)="search($event)"
+          (ionClear)="clearSearch()"
+        >
+        </ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list inset="true" *ngIf="clubsLoaded">
+    <ion-item
+      *ngFor="let club of clubs"
+      [routerLink]="[ '/edit-club', club.clubID ]"
+    >
+      <ion-avatar slot="start">
+        <img [src]="club.logoPath" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{club.name}}</h2>
+        <h3 color="secondary">{{ club.contactPerson }}</h3>
+        <p>{{ club.contactNumber}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="noClubs">
+      <ion-skeleton-text
+        style="width: 27px; height: 27px"
+        slot="start"
+      ></ion-skeleton-text>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

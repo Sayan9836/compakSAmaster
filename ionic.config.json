@@ -1,0 +1,8 @@
+{
+  "name": "Compak-SA-App",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

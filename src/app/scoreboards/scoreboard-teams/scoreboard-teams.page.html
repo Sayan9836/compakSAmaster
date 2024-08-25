@@ -1,0 +1,73 @@
+<ion-header *ngIf="eventLoaded">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="[ '/event-details/', eventID ]">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{ event.name }} - Provincial Teams Override
+    </ion-title>
+    <ion-buttons slot="primary" *ngIf="!saving">
+      <ion-button (click)="confirmClear()">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="save()">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-spinner name="circles" *ngIf="saving"></ion-spinner>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="scoreboardLoaded && eventLoaded">
+  <ion-grid fixed id="scoreboardMin">
+    <ion-chip outline color="primary">
+      <ion-label>Your screen is too small for this feature. Either rotate your screen or use a larger device.
+      </ion-label>
+    </ion-chip>
+  </ion-grid>
+  <ion-grid fixed id="scoreboardMax">
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <form [formGroup]="scoreForm">
+          <table style="border-top-left-radius:15px;border-top-right-radius:15px;">
+            <thead>
+              <tr>
+                <th class="ion-text-left" style="border-top-left-radius:15px;">Member</th>
+                <th class="ion-text-center">Category</th>
+                <th class="ion-text-center">Class</th>
+                <th class="ion-text-center">Squad</th>
+                <!-- <th class="ion-text-center">Membership Province</th> -->
+                <th class="ion-text-center" style="border-top-right-radius:15px;">Province Override</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="scores">
+              <tr *ngFor="let score of getScoreControls();let i=index" [formGroupName]="i">
+                <td style="padding-left:15px;">{{score.value.member}}</td>
+                <td class="ion-text-center">{{score.value.category}}</td>
+                <td class="ion-text-center">{{score.value.class}}</td>
+                <td class="ion-text-center">{{score.value.squadNumber}}</td>
+                <!-- <td class="ion-text-center">{{score.value.province}}</td> -->
+                <td>
+                  <ion-spinner name="circles" *ngIf="loadingProvinces"></ion-spinner>
+                  <ion-select placeholder="Select Province" formControlName="province" *ngIf="!loadingProvinces">
+                    <ion-select-option value="{{province.provinceID}}" *ngFor="let province of provinces">
+                      {{province.name}}
+                    </ion-select-option>
+                  </ion-select>
+                  <!-- <ion-button [routerLink]="[ '/events', eventID, 'class-override',score.value.userID ]">
+                    <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+                  </ion-button> -->
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

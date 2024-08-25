@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="navigation"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Events
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list inset="true" *ngIf="eventsLoaded">
+    <ion-item *ngFor="let event of events" [routerLink]="['/event-details', event.eventID]">
+      <ion-avatar slot="start" *ngIf="event.registered">
+        <img src="./assets/img/registered.png">
+      </ion-avatar>
+      <ion-avatar slot="start" *ngIf="!event.registered">
+        <img src="./assets/img/not-registered.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{event.name}}</h2>
+        <h3 color="secondary">{{ event.startDate | date: 'fullDate' }}</h3>
+        <p>{{ event.hostingClub}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="noEvents">
+      <ion-skeleton-text style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

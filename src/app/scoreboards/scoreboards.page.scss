@@ -1,0 +1,64 @@
+@media (max-width: 750px) {
+    #scoreboardMax {
+        display: none;
+    }
+}
+@media (min-width: 750px) {
+    #scoreboardMin {
+        display: none;
+    }
+    ion-content{
+        --ion-background-color:#f47b27;
+    }
+}
+table thead th {
+    background: #506a72;
+    background-image: linear-gradient(180deg, #ffffff, #d1d3d4);
+    padding: 10px;
+}
+.averages td {
+    color:black;
+    font-weight: bold;
+}
+.averages {
+    background-image: linear-gradient(180deg, #ffffff, #d1d3d4);
+}
+.title {
+    background: url("../../assets/img/home-banner-bg.png");
+}
+h4 {
+    width:100%;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    background: #f26628;
+    background-image: linear-gradient(180deg, #f47b27, #f15a29);
+    margin-bottom: 0;
+    border-top: 1px solid #ffffff;
+}
+table {
+    width:100%;
+    font-size:13px;
+    background: url("../../assets/img/table-bg.png");
+    
+    border-top-right-radius: 15px;
+}
+table td {
+    color: white;
+    padding-top:10px;
+    padding-bottom: 10px;
+    border-top: 1px solid white;
+}
+.total {
+    background: #9acd66;
+}
+.grandTotal {
+    background: #5a747a;
+}
+.highScore {
+    background:#f47b27;
+}
+.maxScore {
+    background: #ff0000;
+}

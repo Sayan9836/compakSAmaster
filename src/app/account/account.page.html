@@ -1,0 +1,178 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="navigation"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> My Account </ion-title>
+    <!-- <ion-buttons *ngIf="accountLoaded" slot="primary">
+      <ion-button [routerLink]="[ '/edit-account', user.ID ]">
+        <ion-icon name="create" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="accountLoaded">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col class="ion-no-padding" offset-md="3" size-md="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="6">
+                  <img [src]="user.img" alt="User Image" />
+                  <ion-card-title class="ion-margin-top ion-margin-bottom"
+                    >{{ user.name }} {{ user.surname }}
+                  </ion-card-title>
+                  <ion-card-subtitle
+                    color="success"
+                    *ngIf="user.paidStatus === 'Yes'"
+                    >PAID-UP MEMBER
+                  </ion-card-subtitle>
+                  <ion-card-subtitle
+                    color="danger"
+                    *ngIf="user.paidStatus !== 'Yes'"
+                    >NON-PAID MEMBER
+                  </ion-card-subtitle>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-button
+                    shape="round"
+                    expand="full"
+                    size="small"
+                    (click)="loadEventHistory()"
+                    *ngIf="(!noEventHistory)"
+                    >Event History
+                  </ion-button>
+                  <ion-button
+                    class="ion-margin-top"
+                    shape="round"
+                    expand="full"
+                    size="small"
+                    (click)="memberCert()"
+                    *ngIf="user.paidStatus === 'Yes'"
+                    >Member Certificate
+                  </ion-button>
+                  <ion-button
+                    class="ion-margin-top"
+                    shape="round"
+                    expand="full"
+                    size="small"
+                    (click)="memberCard()"
+                    *ngIf="user.paidStatus === 'Yes'"
+                    >Membership Card</ion-button
+                  >
+                  <ion-button
+                    class="ion-margin-top"
+                    shape="round"
+                    expand="full"
+                    size="small"
+                    (click)="shooterCert()"
+                    *ngIf="(user.paidStatus === 'Yes') && (user.dedicatedShooter == true)"
+                    >Dedicated Shooter Cert.
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-list-header class="ion-no-padding">
+                <h3>PERSONAL DETAILS</h3>
+              </ion-list-header>
+              <ion-item class="ion-no-padding">
+                <p>ID Number</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.ID }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Gender</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.gender }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Date of Birth</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.DOB }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Email Address</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.email }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Cell Number</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.cellNumber }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Land Number</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.landNumber }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Physical Address</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.physicalAddress }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Postal Address</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.postalAddress }}</p>
+                </ion-text>
+              </ion-item>
+            </ion-list>
+            <ion-list class="ion-padding-top">
+              <ion-list-header class="ion-no-padding">
+                <h3>SHOOTING DETAILS</h3>
+              </ion-list-header>
+              <ion-item class="ion-no-padding">
+                <p>Club</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p *ngIf="user.club !== null">{{ user.club.name }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Category</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.category }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Class</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.class }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>Province</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.province }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>African Champs Ranking</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.africanRank }}</p>
+                </ion-text>
+              </ion-item>
+              <ion-item class="ion-no-padding">
+                <p>World Champs Ranking</p>
+                <ion-text class="ion-text-right" color="primary" slot="end">
+                  <p>{{ user.worldRank }}</p>
+                </ion-text>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

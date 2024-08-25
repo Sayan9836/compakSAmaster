@@ -1,0 +1,70 @@
+<ion-header *ngIf="scoresLoaded && eventLoaded">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="[ '/scoreboard-capture-scores/', eventID ]">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{ event.name }} - Shoot-Off
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="save()">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="scoresLoaded && eventLoaded">
+  <ion-grid fixed *ngIf="!noScores">
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <form [formGroup]="scoreForm">
+          <table style="border-top-left-radius:15px;border-top-right-radius:15px;">
+            <thead>
+              <tr>
+                <th class="ion-text-left" style="border-top-left-radius:15px;">Member</th>
+                <th class="ion-text-center">Category</th>
+                <th class="ion-text-center">Class</th>
+                <th class="ion-text-center">Squad</th>
+                <th class="ion-text-center">Shoot-Off Score</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="scores">
+              <tr *ngFor="let score of getScoreControls();let i=index" [formGroupName]="i">
+                <td style="padding-left:15px;">{{score.value.member}}</td>
+                <td class="ion-text-center">{{score.value.category}}</td>
+                <td class="ion-text-center">{{score.value.class}}</td>
+                <td class="ion-text-center">{{score.value.squadNumber}}</td>
+                <td class="ion-text-center" [ngClass]="{'maxScore': score.value.grandTotal == 25}">
+                  <input [ngClass]="{'invalid': score.status === 'INVALID'}" type="text" formControlName="grandTotal">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid fixed *ngIf="noScores">
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-skeleton-text style="width: 27px; height: 27px" slot="start"></ion-skeleton-text>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

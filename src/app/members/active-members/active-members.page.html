@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="navigation"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Active Members </ion-title>
+    <ion-buttons slot="primary">
+      <ion-spinner *ngIf="loading" name="lines" color="dark"></ion-spinner>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed *ngIf="usersLoaded">
+    <ion-row>
+      <ion-col size="12" size-md="6" offset-md="3">
+        <ion-searchbar
+          placeholder="Find Members"
+          (search)="search($event)"
+          (ionClear)="clearSearch()"
+        >
+        </ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list inset="true" *ngIf="usersLoaded">
+    <ion-item *ngFor="let user of users">
+      <ion-avatar slot="start">
+        <img [src]="user.img" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{user.name}} {{user.surname}}</h2>
+        <h3 color="secondary">{{ user.email }}</h3>
+        <p>{{ user.cellNumber}}</p>
+      </ion-label>
+      <!-- <ion-button
+        color="danger"
+        class="ion-float-right"
+        (click)="confirmRemove(user.userID)"
+      >
+        Delete
+      </ion-button>
+      <ion-button class="ion-float-right" (click)="makeInactive(user.userID)">
+        Make Inactive
+      </ion-button> -->
+      <ion-button
+        class="ion-float-right"
+        [routerLink]="['/edit-account', user.userID]"
+      >
+        Edit User
+      </ion-button>
+    </ion-item>
+    <ion-item *ngIf="noUsers">
+      <ion-skeleton-text
+        style="width: 27px; height: 27px"
+        slot="start"
+      ></ion-skeleton-text>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

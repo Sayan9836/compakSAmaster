@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="[ '/auth' ]">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Registration
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="save()">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <form [formGroup]="accountForm">
+          <ion-list class="ion-margin-bottom">
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Name <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input required type="text" formControlName="name"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Surname <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input required type="text" formControlName="surname"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Gender <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-select required formControlName="gender">
+                <ion-select-option value="Female">Female</ion-select-option>
+                <ion-select-option value="Male">Male</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">ID Number (This is also your password)<ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input required type="text" formControlName="ID"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Date of Birth <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input required type="date" formControlName="DOB"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Email Address <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input required type="email" formControlName="email" email></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Cellphone Number <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input required type="text" formControlName="cellNumber"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Landline Number</ion-label>
+              <ion-input type="text" formControlName="landNumber"></ion-input>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Physical Address <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-textarea required formControlName="physicalAddress"></ion-textarea>
+            </ion-item>
+            <ion-item class="ion-margin-bottom">
+              <ion-label position="floating">Postal Address <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-textarea required formControlName="postalAddress"></ion-textarea>
+            </ion-item>
+            <ion-item class="ion-margin-bottom" *ngIf="provincesLoaded">
+              <ion-label position="floating">Province <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-select required formControlName="province">
+                <ion-select-option *ngFor="let province of provinces" value="{{province.provinceID}}">{{province.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="ion-margin-bottom" *ngIf="clubsLoaded">
+              <ion-label position="floating">Club</ion-label>
+              <ion-select formControlName="club">
+                <ion-select-option *ngFor="let club of clubs" value="{{club.clubID}}">{{club.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

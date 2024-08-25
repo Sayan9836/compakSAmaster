@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Export Paid Members By Province
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text color="primary" *ngIf="loading">
+    <h1>Loading...</h1>
+  </ion-text>
+  <ion-text color="primary" *ngIf="exported">
+    <h1>Exported. You may close this window.</h1>
+  </ion-text>
+</ion-content>
